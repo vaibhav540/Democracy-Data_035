@@ -1,7 +1,7 @@
 import React from "react";
 
 function dummy() {
-  return <div>dummy</div>;
+  return <div>hello</div>;
 }
 
 export default dummy;
