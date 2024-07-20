@@ -3,7 +3,11 @@ import React from "react";
 export default function HomePage() {
   return (
     <>
-      <div id="carouselExampleDark" className="carousel carousel-dark slide" data-bs-ride="carousel">
+      <div
+        id="carouselExampleDark"
+        className="carousel carousel-dark slide"
+        data-bs-ride="carousel"
+      >
         <div className="carousel-indicators">
           <button
             type="button"
@@ -27,20 +31,7 @@ export default function HomePage() {
           ></button>
         </div>
         <div className="carousel-inner">
-          <div className="carousel-item active" data-bs-interval="10000">
-            <img
-              src="https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2023/12/14/b2c0d335db76d814aba3d16c468a4724_1000x1000.jpg"
-              className="d-block w-100"
-              alt="..."
-            />
-            <div className="carousel-caption d-none d-md-block">
-              <h5>Adventure Awaits</h5>
-              <h1 className="slider-page1-h1">
-                Embrace the thrill of the weekend
-              </h1>
-            </div>
-          </div>
-          <div className="carousel-item" data-bs-interval="2000">
+          <div className="carousel-item " data-bs-interval="3000">
             <img
               src="https://visitmyholidays.com/wp-content/uploads/2022/06/Yatra-Holidays-Slider-2.jpg"
               className="d-block w-100"
@@ -53,7 +44,7 @@ export default function HomePage() {
               </h1>
             </div>
           </div>
-          <div className="carousel-item">
+          <div className="carousel-item active" data-bs-interval="3000">
             <img
               src="https://visitmyholidays.com/wp-content/uploads/2022/06/Yatra-Holidays-Slider-1.jpg"
               className="d-block w-100"
@@ -63,6 +54,19 @@ export default function HomePage() {
               <h5>Finding magic in every moment</h5>
               <h1 className="slider-page1-h1">
                 Discover Amazing Places With Us
+              </h1>
+            </div>
+          </div>
+          <div className="carousel-item " data-bs-interval="3000">
+            <img
+              src="https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2023/12/14/b2c0d335db76d814aba3d16c468a4724_1000x1000.jpg"
+              className="d-block w-100"
+              alt="..."
+            />
+            <div className="carousel-caption d-none d-md-block">
+              <h5>Adventure Awaits</h5>
+              <h1 className="slider-page1-h1">
+                Embrace the thrill of the weekend
               </h1>
             </div>
           </div>
@@ -105,9 +109,8 @@ export default function HomePage() {
                   At Wanderlust Travels, we design personalized travel
                   experiences to make your dreams come true. With over a decade
                   in the industry, our team excels at crafting unique
-                  itineraries for beach getaways Let us turn your
-                  travel dreams into reality with exceptional service and
-                  expertise.
+                  itineraries for beach getaways Let us turn your travel dreams
+                  into reality with exceptional service and expertise.
                 </p>
               </div>
             </div>
