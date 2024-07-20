@@ -3,7 +3,6 @@ const router = express.Router();
 import UserController from '../controllers/userController.js';
 import passport from 'passport';
 import accessTokenAutoRefresh from '../middlewares/accessTokenAutoRefresh.js';
-import checkAdminRole from '../middlewares/checkAdminRole.js';
 
 // Public Routes
  // ".register is our enpoint if someone trigger this UserController.userRegistration will invoke"
@@ -22,8 +21,6 @@ router.get('/me',accessTokenAutoRefresh, passport.authenticate('jwt',{ session :
 router.post('/change-password', accessTokenAutoRefresh, passport.authenticate('jwt', { session: false }), UserController.changeUserPassword)
 router.post('/logout',accessTokenAutoRefresh, passport.authenticate('jwt',{ session : false}), UserController.userLogout)
 
-// Admin Routes
-router.get('/admin/users', accessTokenAutoRefresh, passport.authenticate('jwt', { session: false }), checkAdminRole, UserController.getAllUsers);
-router.delete('/admin/users/:id', accessTokenAutoRefresh, passport.authenticate('jwt', { session: false }), checkAdminRole, UserController.deleteUser);
+
 
 export default router;
