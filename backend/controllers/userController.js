@@ -543,30 +543,6 @@ class UserController {
     }
 
   }
-
-
-   // Admin: Get All Users
-   static getAllUsers = async (req, res) => {
-    try {
-      const users = await UserModel.find().select('-password');
-      res.status(200).json(users);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ status: "failed", message: "Unable to fetch users, please try again later" });
-    }
-  };
-
-  // Admin: Delete User
-  static deleteUser = async (req, res) => {
-    try {
-      const { id } = req.params;
-      await UserModel.findByIdAndDelete(id);
-      res.status(200).json({ status: "success", message: "User deleted successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ status: "failed", message: "Unable to delete user, please try again later" });
-    }
-  };
 }
 
 export default UserController;
