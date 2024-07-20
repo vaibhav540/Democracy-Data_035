@@ -1,12 +1,19 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import AppRoutes from './routes'; // Import your routes component
+import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  const location = useLocation();
+  const hideNavbarPages = ['/user/settings']; // Add paths where Navbar should be hidden
 
-  return <></>;
-}
+  return (
+    <>
+      {!hideNavbarPages.includes(location.pathname) && <Navbar />}
+      <AppRoutes /> 
+    </>
+  );
+};
 
 export default App;
