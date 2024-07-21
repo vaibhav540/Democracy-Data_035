@@ -42,7 +42,7 @@ const BookPlace = () => {
   };
 
   return (
-    <div id="places-container">
+    <div className="container" id="places-container">
       <div className="places-list">
         {displayedPlaces.map((place) => (
           <motion.div

@@ -15,6 +15,7 @@ function Testimonials() {
   };
 
   return (
+    <div className="container">
     <section id="testimonials" className={Classes.testimonials}>
       <h1>Happy Customers</h1>
       <div className={Classes.boxContainer}>
@@ -67,6 +68,7 @@ function Testimonials() {
         </div>
       </div>
     </section>
+    </div>
   );
 }
 

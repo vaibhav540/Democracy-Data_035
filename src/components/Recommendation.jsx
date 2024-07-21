@@ -92,7 +92,7 @@ function Recommendation() {
   };
 
   return (
-    <div>
+    <div className="container">
       <Service />
       <section id="recommendation" className="recommendation">
         <div className="title">
@@ -128,17 +128,17 @@ function Recommendation() {
                 <div id="icons">
                   <span>
                     {" "}
-                    <FontAwesomeIcon icon={faMapMarkerAlt} size="2x" />
+                    <FontAwesomeIcon icon={faMapMarkerAlt} size="1.5x" />
                   </span>
                   <span>
-                    <FontAwesomeIcon icon={faTrain} size="2x" />
+                    <FontAwesomeIcon icon={faTrain} size="1.5x" />
                   </span>
                   <span>
                     {" "}
-                    <FontAwesomeIcon icon={faPlane} size="2x" />
+                    <FontAwesomeIcon icon={faPlane} size="1.5x" />
                   </span>
                 </div>
-                <p>₹{item.cost}</p>
+                <p style={{ fontSize: "20px" }}>₹{item.cost}</p>
               </div>
               <div className="details">
                 <p>1500 kms</p>

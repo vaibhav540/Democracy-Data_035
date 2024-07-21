@@ -51,61 +51,63 @@ const Hotels = () => {
   };
 
   return (
-    <div className="hotels-container">
-      <div className="filter-container">
-        <div>
-          <label htmlFor="destination">Select Destination:</label>
-          <select
-            id="destination"
-            value={selectedDestination}
-            onChange={handleDestinationChange}
-          >
-            <option value="">All Destinations</option>
-            {/* Populate with unique destinations */}
-            {[...new Set(hotels.map((hotel) => hotel.destination))].map(
-              (destination) => (
-                <option key={destination} value={destination}>
-                  {destination}
-                </option>
-              )
-            )}
-          </select>
-        </div>
-      </div>
-      <div className="hotels-list">
-        {filteredHotels.slice(0, visibleHotels).map((hotel) => (
-          <div key={hotel.id} className="hotel-card">
-            <img src={hotel.image} alt={hotel.name} className="hotel-image" />
-            <h3>{hotel.name}</h3>
-            <p>
-              <strong>Facilities:</strong> {hotel.facilities.join(", ")}
-            </p>
-            <p>
-              <strong>Famous for:</strong> {hotel.famousFor}
-            </p>
-            <p>
-              <strong>Destination:</strong> {hotel.destination}
-            </p>
-            <p>
-              <strong>Stars:</strong> {hotel.stars}
-            </p>
-            <p>
-              <strong>Rating:</strong> {hotel.rating}
-            </p>
-            <button
-              onClick={() => handleBookHotel(hotel)}
-              className="book-hotels-btn"
+    <div className="container">
+      <div className="hotels-container">
+        <div className="filter-container">
+          <div>
+            <label htmlFor="destination">Select Destination:</label>
+            <select
+              id="destination"
+              value={selectedDestination}
+              onChange={handleDestinationChange}
             >
-              Book Now
-            </button>
+              <option value="">All Destinations</option>
+              {/* Populate with unique destinations */}
+              {[...new Set(hotels.map((hotel) => hotel.destination))].map(
+                (destination) => (
+                  <option key={destination} value={destination}>
+                    {destination}
+                  </option>
+                )
+              )}
+            </select>
           </div>
-        ))}
+        </div>
+        <div className="hotels-list">
+          {filteredHotels.slice(0, visibleHotels).map((hotel) => (
+            <div key={hotel.id} className="hotel-card">
+              <img src={hotel.image} alt={hotel.name} className="hotel-image" />
+              <h3>{hotel.name}</h3>
+              <p>
+                <strong>Facilities:</strong> {hotel.facilities.join(", ")}
+              </p>
+              <p>
+                <strong>Famous for:</strong> {hotel.famousFor}
+              </p>
+              <p>
+                <strong>Destination:</strong> {hotel.destination}
+              </p>
+              <p>
+                <strong>Stars:</strong> {hotel.stars}
+              </p>
+              <p>
+                <strong>Rating:</strong> {hotel.rating}
+              </p>
+              <button
+                onClick={() => handleBookHotel(hotel)}
+                className="book-hotels-btn"
+              >
+                Book Now
+              </button>
+            </div>
+          ))}
+        </div>
+        {visibleHotels < filteredHotels.length && (
+          <button id="load" onClick={handleLoadMore} className="load-more-btn">
+            Load More
+          </button>
+        )}
       </div>
-      {visibleHotels < filteredHotels.length && (
-        <button id="load" onClick={handleLoadMore} className="load-more-btn">
-          Load More
-        </button>
-      )}
     </div>
   );
 };

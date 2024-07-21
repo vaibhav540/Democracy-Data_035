@@ -107,46 +107,48 @@ const CustomerReviews = () => {
   };
 
   return (
-    <div className="reviews-container">
-      <h2>Customer Reviews</h2>
-      {reviews.map((review, index) => (
-        <motion.div
-          key={index}
-          className="review-card"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          whileHover={{
-            scale: 1.05,
-            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.2)",
-          }}
-        >
-          <h3>{review.name}</h3>
-          <div className="rating">
-            {Array(review.rating)
-              .fill()
-              .map((_, i) => (
-                <span key={i}>&#9733;</span>
-              ))}
-          </div>
-          <p>{review.comment}</p>
-          <div className="review-actions">
-            <button onClick={handleLike}>
-              <FontAwesomeIcon icon={faHeart} size="2x" />
-              {likes}
-            </button>
-            {/* <button onClick={() => handleCommentSubmit(index)}>
+    <div className="container">
+      <div className="reviews-container">
+        <h2>Customer Reviews</h2>
+        {reviews.map((review, index) => (
+          <motion.div
+            key={index}
+            className="review-card"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.2)",
+            }}
+          >
+            <h3>{review.name}</h3>
+            <div className="rating">
+              {Array(review.rating)
+                .fill()
+                .map((_, i) => (
+                  <span key={i}>&#9733;</span>
+                ))}
+            </div>
+            <p>{review.comment}</p>
+            <div className="review-actions">
+              <button onClick={handleLike}>
+                <FontAwesomeIcon icon={faHeart} size="2x" />
+                {likes}
+              </button>
+              {/* <button onClick={() => handleCommentSubmit(index)}>
               Add Comment
             </button> */}
-          </div>
-          <textarea
-            value={newComment}
-            onChange={handleCommentChange}
-            placeholder="Write your comment..."
-          />
-          <Button>Post Comment</Button>
-        </motion.div>
-      ))}
+            </div>
+            <textarea
+              value={newComment}
+              onChange={handleCommentChange}
+              placeholder="Write your comment..."
+            />
+            <Button>Post Comment</Button>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 };
