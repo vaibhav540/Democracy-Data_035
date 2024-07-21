@@ -9,8 +9,16 @@ import {
 
 function Footer() {
   return (
-    <footer className={Classes.footerContainer}>
-      <div className={Classes.footer}>
+    <footer class="container" className={Classes.footerContainer}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+        className={Classes.footer}
+      >
         <div id="footer-icon" className={Classes.socialLink}>
           <p>+8801305282768</p>
           <p>WeekenPlan@gmail.com</p>

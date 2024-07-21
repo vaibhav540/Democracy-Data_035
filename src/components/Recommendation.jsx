@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Styles/Recommendation.css";
+import About from "./About";
 
 import Destination1 from "/src/assets/uttarakhand.jpg";
 import Destination2 from "/src/assets/Maharashtra.jpg";
@@ -149,6 +150,7 @@ function Recommendation() {
         </div>
       </section>
       <Testimonials />
+      <About/>
       <Footer />
     </div>
   );

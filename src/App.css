@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 /* Universal Styles */
 * {
@@ -9,14 +8,14 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #f3f3f3;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
 }
 
 .heading {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 2rem;
   color: #008374;
   margin-bottom: 20px;
@@ -89,6 +88,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.navList:hover {
+  text-decoration: underline;
+  color: #d4b0ff; /* Light purple color on hover */
+  transform: scale(1.05); /* Slight scaling effect on hover */
+}
 .nav-link:hover {
   text-decoration: underline;
   color: #d4b0ff; /* Light purple color on hover */
@@ -166,23 +170,21 @@ body {
   text-decoration: underline;
 }
 
-
-
 /* Slider */
 
-.carousel-caption{
-  color:white;
+.carousel-caption {
+  color: white;
   font-family: "Poppins", sans-serif;
 }
 
-.carousel-caption>h5{
+.carousel-caption > h5 {
   font-size: 25px;
   font-weight: 700;
-  color:white
+  color: white;
 }
 
-.slider-page1-h1{
-  color:white;
+.slider-page1-h1 {
+  color: white;
   font-family: "Poppins", sans-serif;
   font-size: 80px;
   font-weight: 900;
@@ -191,36 +193,36 @@ body {
 .carousel-item img {
   width: 100%;
   height: 500px; /* Adjust height as needed */
-   /* Ensures images cover the area without distortion */
+  /* Ensures images cover the area without distortion */
 }
 
-.about-us-banner{
+.about-us-banner {
   height: 70vh;
 }
 
-.about-us-banner>div{
+.about-us-banner > div {
   width: 100%;
 }
 
-.about-us-banner-main-div{
+.about-us-banner-main-div {
   border: solid transparent;
-  background-color:#f3f3f3; ;
+  background-color: #f3f3f3;
 }
 
-.about-us-banner-img{
-  background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0a/c4/72/f6/jal-mahal-jaipur-tour.jpg?w=500&h=400&s=1');
+.about-us-banner-img {
+  background-image: url("https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0a/c4/72/f6/jal-mahal-jaipur-tour.jpg?w=500&h=400&s=1");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
 
-.about-us-banner-text-maindiv{
+.about-us-banner-text-maindiv {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.about-us-banner-text-maindiv-inner-div{
+.about-us-banner-text-maindiv-inner-div {
   background-color: white;
   width: 40vw;
   height: 60vh;
@@ -229,18 +231,17 @@ body {
   padding: 30px;
 }
 
-.about-us-banner-text-maindiv-inner-div>div{
-    font-family:"Poppins", sans-serif; ;
+.about-us-banner-text-maindiv-inner-div > div {
+  font-family: "Poppins", sans-serif;
 }
 
-.about-us-banner-text-maindiv-inner-div>div>h5{
-  color:#8fb730;
+.about-us-banner-text-maindiv-inner-div > div > h5 {
+  color: #8fb730;
   font-size: 20px;
 }
-.about-us-banner-text-maindiv-inner-div>div>h1{
+.about-us-banner-text-maindiv-inner-div > div > h1 {
   font-weight: 900;
 }
-
 
 @media (max-width: 768px) {
   .about-us-banner-img {
@@ -272,4 +273,10 @@ body {
   .about-us-banner-text-maindiv-inner-div > div > h5 {
     font-size: 12px;
   }
+}
+
+svg:hover {
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid grey;
 }

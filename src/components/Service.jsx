@@ -7,6 +7,8 @@ import service2 from "../assets/service2.png";
 import service3 from "../assets/service3.png";
 import service4 from "../assets/service4.png";
 
+import PopularCity from "./PopularCity";
+
 function Service() {
   const data = [
     {
@@ -36,19 +38,22 @@ function Service() {
   ];
 
   return (
-    <section id="service" className={Classes.service}>
-      {data.map((item) => {
-        return (
-          <div className={Classes.services}>
-            <div className={Classes.icon}>
-              <img src={item.icon} alt="" />
+    <>
+      <PopularCity />
+      <section id="service" className={Classes.service}>
+        {data.map((item) => {
+          return (
+            <div className={Classes.services}>
+              <div className={Classes.icon}>
+                <img src={item.icon} alt="" />
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.subTitle}</p>
             </div>
-            <h3>{item.title}</h3>
-            <p>{item.subTitle}</p>
-          </div>
-        );
-      })}
-    </section>
+          );
+        })}
+      </section>
+    </>
   );
 }
 

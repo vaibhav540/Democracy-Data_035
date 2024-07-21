@@ -5,6 +5,8 @@ import AppRoutes from "./routes"; // Import your routes component
 import "./App.css";
 import MyRoute from "./vaibhavsRoutes/MyRoute";
 import BookPlace from "./pages/BookPlace";
+import About from "./components/About";
+import PopularCity from "./components/PopularCity";
 
 const App = () => {
   const location = useLocation();
@@ -13,6 +15,7 @@ const App = () => {
   return (
     <>
       {!hideNavbarPages.includes(location.pathname) && <Navbar />}
+
       <AppRoutes />
       <MyRoute />
     </>
