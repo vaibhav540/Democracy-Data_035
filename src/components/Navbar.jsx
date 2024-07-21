@@ -135,15 +135,18 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="navbar-main-content container-fluid">
+        <div
+          style={{ marginTop: "5px" }}
+          className="navbar-main-content container-fluid"
+        >
           <div className="navbar-content container d-flex">
             <div className="navbar-icon d-flex">
               <Link className="navbar-brand" to="/">
                 <img
                   style={{
                     objectFit: "cover",
-                    width: "110px",
-                    height: "45px",
+                    width: "125px",
+                    height: " 50px",
                     padding: "0px",
                     margin: "0px",
                   }}
@@ -196,16 +199,16 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <Link to="#" className="nav-link">
+                  <Link style={{ color: "white" }} to="#" className="nav-link">
                     About
                   </Link>
-                  <Link to="#" className="nav-link">
+                  <Link style={{ color: "white" }} to="#" className="nav-link">
                     Services
                   </Link>
-                  <Link to="#" className="nav-link">
+                  <Link style={{ color: "white" }} to="#" className="nav-link">
                     Portfolio
                   </Link>
-                  <Link to="#" className="nav-link">
+                  <Link style={{ color: "white" }} to="#" className="nav-link">
                     Dashboard
                   </Link>
                   <ButtonGroup spacing={4}>
