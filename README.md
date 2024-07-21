@@ -8,8 +8,8 @@
 
 # step 4 :- json-server places.json --port 4000
 
-step 5 :- open new terminal-->cd democracy-->cd src-->json-server hotels.json --port 5000
+# step 5 :- open new terminal-->cd democracy-->cd src-->json-server hotels.json --port 5000
 
-step 6 :- npm run dev
+# step 6 :- npm run dev
 
 
