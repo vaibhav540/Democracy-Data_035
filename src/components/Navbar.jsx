@@ -140,10 +140,14 @@ const Navbar = () => {
             <div className="navbar-icon d-flex">
               <Link className="navbar-brand" to="/">
                 <img
-                  src="https://masai-website-images.s3.ap-south-1.amazonaws.com/logo.png"
+                  style={{
+                    objectFit: "cover",
+                    width: "100px",
+                    height: "45px",
+                    borderRadius: "10px",
+                  }}
+                  src="https://i.pinimg.com/originals/5d/48/ca/5d48ca330a35603adaabb7a4071b4116.jpg"
                   alt="Bootstrap"
-                  width="120"
-                  height="42"
                 />
               </Link>
             </div>
@@ -191,59 +195,15 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <div
-                    style={{
-                      display: "flex",
-                      paddingInline: "20px",
-                      gap: "30px",
-                    }}
-                  >
-                    <a
-                      className="navList"
-                      style={{
-                        color: "white",
-                        fontStyle: "normal",
-                        fontWeight: "400",
-                      }}
-                      href="#popularCity"
-                    >
-                      Popular Citys
-                    </a>
-                    <a
-                      className="navList"
-                      style={{
-                        color: "white",
-                        fontStyle: "normal",
-                        fontWeight: "400",
-                      }}
-                      href="#service"
-                    >
-                      Service
-                    </a>
-                    <a
-                      className="navList"
-                      style={{
-                        color: "white",
-                        fontStyle: "normal",
-                        fontWeight: "400",
-                      }}
-                      href="#re-view"
-                    >
-                      Reviews
-                    </a>
-
-                    <a
-                      className="navList"
-                      style={{
-                        color: "white",
-                        fontStyle: "normal",
-                        fontWeight: "400",
-                      }}
-                      href="#about"
-                    >
-                      About
-                    </a>
-                  </div>
+                  <Link to="/user/about" className="nav-link">
+                    About
+                  </Link>
+                  <Link to="#" className="nav-link">
+                    Services
+                  </Link>
+                  <Link to="#" className="nav-link">
+                    Portfolio
+                  </Link>
                   <Link to="#" className="nav-link">
                     Dashboard
                   </Link>
