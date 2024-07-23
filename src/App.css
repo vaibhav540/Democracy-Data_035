@@ -280,3 +280,26 @@ svg:hover {
   border-radius: 5px;
   border: 1px solid grey;
 }
+
+
+/* Profile/ProfileDashboard */
+
+.Dashboard-Main-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.Dashboard-Main-container>div{
+  width: 100%;
+}
+.Dashboard-Main-container>div:nth-of-type(2){
+  padding: 20px;
+}
+
+.user-profile-card-section{
+
+}

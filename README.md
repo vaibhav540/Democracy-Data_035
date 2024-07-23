@@ -69,9 +69,12 @@ Detailed instructions on how to install, configure, and get the project running.
 
 ```bash
     git clone https://github.com/vaibhav540/Democracy-Data_035.git
-    cd my-project
-    npm install
-    npm run dev
+    - npm install
+    -npm run dev
+    - in the next terminal
+    -cd backend
+    -npm install
+    -npm run dev
 ```
 
 ## API Endpoints
