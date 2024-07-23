@@ -8,6 +8,8 @@ import ResetPasswordConfirm from "./app/account/reset-password-confirm/[id]/[tok
 import Profile from "./app/user/profile/page";
 import ChangePassword from "./app/user/change-password/page";
 import UserProfileSetting from "./app/user/settings/page";
+import About from "./components/About";
+import DistrictSection from "./components/District/DistrictSection";
 
 const AppRoutes = () => (
   <Routes>
@@ -26,6 +28,8 @@ const AppRoutes = () => (
     <Route path="/user/profile" element={<Profile />} />
     <Route path="/user/change-password" element={<ChangePassword />} />
     <Route path="/user/settings" element={<UserProfileSetting/>} />
+    <Route path="/user/about" element={<About/>} />
+    <Route path="/user/state/district/:stateName" element={<DistrictSection/>} />
 
   </Routes>
 );

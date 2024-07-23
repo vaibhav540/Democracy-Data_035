@@ -8,38 +8,36 @@ import refreshAccessToken from "../utils/refreshAccessToken.js";
 import UserRefreshTokenModel from "../models/UserRefreshToken.js";
 import jwt from "jsonwebtoken";
 import transporter from "../config/emailConfig.js";
-
 class UserController {
   // User Registration
-
   static userRegistration = async (req, res) => {
     try {
-      // Extracting request body parameters, to acess database details (name,email, etc)
+      // Extract request body parameters
       const { name, email, password, password_confirmation } = req.body;
 
-      // Checking if all required fields are provided
+      // Check if all required fields are provided
       if (!name || !email || !password || !password_confirmation) {
         return res
           .status(400)
           .json({ status: "failed", message: "All fields are required" });
       }
 
-      // Check if password and password_confirmation are same or not
+      // Check if password and password_confirmation match
       if (password !== password_confirmation) {
         return res
           .status(400)
           .json({
             status: "failed",
-            message: "Password and Confirm Password are not same",
+            message: "Password and Confirm Password don't match",
           });
       }
 
-      // Check if email alredy exist
+      // Check if email already exists
       const existingUser = await UserModel.findOne({ email });
       if (existingUser) {
         return res
-          .status(400)
-          .json({ status: "failed", message: "Email alredy exists" });
+          .status(409)
+          .json({ status: "failed", message: "Email already exists" });
       }
 
       // Generate salt and hash password
@@ -53,56 +51,55 @@ class UserController {
         password: hashedPassword,
       }).save();
 
-      // Sending OTP to new User
       sendEmailVerificationOTP(req, newUser);
 
-      // Send Success Response
+      // Send success response
       res.status(201).json({
         status: "success",
-        message: " Registration Successfull",
-        user: { id: newUser._id, email: newUser.email }, // at this place we can pass role of the user as paramereter as well
+        message: "Registration Success",
+        user: { id: newUser._id, email: newUser.email },
       });
     } catch (error) {
-      console.log(error); //Comment in Prodcution
+      console.error(error);
       res
         .status(500)
         .json({
           status: "failed",
-          message: "Unable to Register, Please Try again",
+          message: "Unable to Register, please try again later",
         });
     }
   };
 
-  // User Email Verfication
-  static varifyEmail = async (req, res) => {
+  // User Email Verification
+  static verifyEmail = async (req, res) => {
     try {
-      // Extract request body parameter
+      // Extract request body parameters
       const { email, otp } = req.body;
 
-      // Checking if all the required fields are present or not
+      // Check if all required fields are provided
       if (!email || !otp) {
         return res
           .status(400)
           .json({ status: "failed", message: "All fields are required" });
       }
 
-      // Checking the email coming from existing user or not
       const existingUser = await UserModel.findOne({ email });
 
+      // Check if email doesn't exists
       if (!existingUser) {
         return res
-          .status(400)
-          .json({ status: "failed", message: "Email does't exists" });
+          .status(404)
+          .json({ status: "failed", message: "Email doesn't exists" });
       }
 
-      // Checking if email is alredy vaerified or not?
+      // Check if email is already verified
       if (existingUser.is_verified) {
         return res
           .status(400)
-          .json({ status: "failed", message: "Email is alredy verified" });
+          .json({ status: "failed", message: "Email is already verified" });
       }
 
-      // Checking if there is a matching email verification OTP
+      // Check if there is a matching email verification OTP
       const emailVerification = await EmailVerificationModel.findOne({
         userId: existingUser._id,
         otp,
@@ -123,9 +120,9 @@ class UserController {
           .json({ status: "failed", message: "Invalid OTP" });
       }
 
-      // Checking if OTP is expired
+      // Check if OTP is expired
       const currentTime = new Date();
-      //  15*60*1000 calculates the expiration period in milliseconds (15 minutes).
+      // 15 * 60 * 1000 calculates the expiration period in milliseconds(15 minutes).
       const expirationTime = new Date(
         emailVerification.createdAt.getTime() + 15 * 60 * 1000
       );
@@ -136,72 +133,69 @@ class UserController {
           .status(400)
           .json({
             status: "failed",
-            message: "OTP expired,new OTP send to your email",
+            message: "OTP expired, new OTP sent to your email",
           });
       }
 
-      // OTP is valid and not expired,mark email as vaerified now
+      // OTP is valid and not expired, mark email as verified
       existingUser.is_verified = true;
       await existingUser.save();
 
-      // Delete email verification document (i.e OTP)
+      // Delete email verification document
       await EmailVerificationModel.deleteMany({ userId: existingUser._id });
       return res
         .status(200)
-        .json({ status: "success", message: "Email verified Successfully" });
+        .json({ status: "success", message: "Email verified successfully" });
     } catch (error) {
       console.error(error);
-      return res
+      res
         .status(500)
         .json({
           status: "failed",
-          message: "Unable to verify email, Please try again later",
+          message: "Unable to verify email, please try again later",
         });
     }
   };
 
   // User Login
-
   static userLogin = async (req, res) => {
     try {
       const { email, password } = req.body;
-
-      // Check if email and Password are provided
+      // Check if email and password are provided
       if (!email || !password) {
         return res
           .status(400)
           .json({
             status: "failed",
-            message: "Email and Password are required",
+            message: "Email and password are required",
           });
       }
-
-      // Find user by Email
+      // Find user by email
       const user = await UserModel.findOne({ email });
 
-      // Checking if user exists or not
+      // Check if user exists
       if (!user) {
         return res
           .status(404)
           .json({ status: "failed", message: "Invalid Email or Password" });
       }
 
-      // Checking user verified or not
+      // Check if user verified
       if (!user.is_verified) {
         return res
           .status(401)
           .json({ status: "failed", message: "Your account is not verified" });
       }
 
-      // Comparing Password
+      // Compare passwords / Check Password
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res
           .status(401)
-          .json({ status: "failed", message: "Invalid Email or Password" });
+          .json({ status: "failed", message: "Invalid email or password" });
       }
 
-      // Generate Token
+      // Generate tokens
       const { accessToken, refreshToken, accessTokenExp, refreshTokenExp } =
         await generateTokens(user);
 
@@ -229,15 +223,13 @@ class UserController {
         access_token_exp: accessTokenExp,
         is_auth: true,
       });
-
-      // Send Success Response with Tokens
     } catch (error) {
       console.error(error);
-      return res
+      res
         .status(500)
         .json({
           status: "failed",
-          message: "Unable to Login, Please try again later",
+          message: "Unable to login, please try again later",
         });
     }
   };
@@ -286,7 +278,6 @@ class UserController {
   };
 
   // Change Password
-
   static changeUserPassword = async (req, res) => {
     try {
       const { password, password_confirmation } = req.body;
@@ -357,82 +348,80 @@ class UserController {
       const token = jwt.sign({ userID: user._id }, secret, {
         expiresIn: "15m",
       });
-
       // Reset Link
       const resetLink = `${process.env.FRONTEND_HOST}/account/reset-password-confirm/${user._id}/${token}`;
       console.log(resetLink);
-
       // Send password reset email
       await transporter.sendMail({
         from: process.env.EMAIL_FROM,
         to: user.email,
         subject: "Password Reset Link",
         html: `
-            <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Reset Your Password</title>
-                    <style>
-                        body {
-                            font-family: Arial, sans-serif;
-                            background-color: #f7f7f7;
-                            color: #333;
-                            margin: 0;
-                            padding: 0;
-                        }
-                        .container {
-                            max-width: 600px;
-                            margin: 50px auto;
-                            background-color: #ffffff;
-                            padding: 20px;
-                            border-radius: 10px;
-                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                        }
-                        .header {
-                            text-align: center;
-                            padding-bottom: 20px;
-                            border-bottom: 1px solid #eeeeee;
-                        }
-                        .header h1 {
-                            margin: 0;
-                            font-size: 24px;
-                            color: #333333;
-                        }
-                        .content {
-                            padding: 20px 0;
-                            text-align: center;
-                        }
-                        .content p {
-                            font-size: 18px;
-                            line-height: 1.6;
-                        }
-                        .footer {
-                            text-align: center;
-                            padding-top: 20px;
-                            border-top: 1px solid #eeeeee;
-                            font-size: 14px;
-                            color: #aaaaaa;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="container">
-                        <div class="header">
-                            <h1>Reset Your Password</h1>
-                        </div>
-                        <div class="content">
-                            <p>Hello ${user.name},</p>
-                            <p>Please <a href="${resetLink}">click here</a> to reset your password.</p>
-                            <p>If you did not request this, please ignore this email.</p>
-                        </div>
-                        <div class="footer">
-                            <p>© ${new Date().getFullYear()} Your Company. All rights reserved.</p>
-                        </div>
+        <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Reset Your Password</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        background-color: #f7f7f7;
+                        color: #333;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .container {
+                        max-width: 600px;
+                        margin: 50px auto;
+                        background-color: #ffffff;
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    }
+                    .header {
+                        text-align: center;
+                        padding-bottom: 20px;
+                        border-bottom: 1px solid #eeeeee;
+                    }
+                    .header h1 {
+                        margin: 0;
+                        font-size: 24px;
+                        color: #333333;
+                    }
+                    .content {
+                        padding: 20px 0;
+                        text-align: center;
+                    }
+                    .content p {
+                        font-size: 18px;
+                        line-height: 1.6;
+                    }
+                    .footer {
+                        text-align: center;
+                        padding-top: 20px;
+                        border-top: 1px solid #eeeeee;
+                        font-size: 14px;
+                        color: #aaaaaa;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h1>Reset Your Password</h1>
                     </div>
-                </body>
-                </html>`,
+                    <div class="content">
+                        <p>Hello ${user.name},</p>
+                        <p>Please <a href="${resetLink}">click here</a> to reset your password.</p>
+                        <p>If you did not request this, please ignore this email.</p>
+                    </div>
+                    <div class="footer">
+                        <p>© ${new Date().getFullYear()} Your Company. All rights reserved.</p>
+                    </div>
+                </div>
+            </body>
+            </html>`,
       });
       // Send success response
       res
@@ -532,17 +521,21 @@ class UserController {
       );
 
       // Clear access token and refresh token cookies
-      res.clearCookie('accessToken');
-      res.clearCookie('refreshToken');
-      res.clearCookie('is_auth');
+      res.clearCookie("accessToken");
+      res.clearCookie("refreshToken");
+      res.clearCookie("is_auth");
 
       res.status(200).json({ status: "success", message: "Logout successful" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ status: "failed", message: "Unable to logout, please try again later" });
+      res
+        .status(500)
+        .json({
+          status: "failed",
+          message: "Unable to logout, please try again later",
+        });
     }
-
-  }
+  };
 }
 
 export default UserController;

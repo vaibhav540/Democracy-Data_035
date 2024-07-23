@@ -4,8 +4,6 @@
 import refreshAccessToken from "../utils/refreshAccessToken.js";
 import isTokenExpired from "../utils/isTokenExpired.js";
 import setTokensCookies from "../utils/setTokensCookies.js";
-
-
 const accessTokenAutoRefresh = async (req, res, next) => {
   try {
     const accessToken = req.cookies.accessToken;
