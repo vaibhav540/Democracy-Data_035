@@ -12,7 +12,7 @@ Struggling to plan the perfect weekend getaway with friends? Weekend Planner is 
 Fullstack
 
 ## Deployed App
-Check Here: [https://deployed-site.whatever](https://deployed-site.whatever)
+Check Here: [https://weekend-planning.netlify.app/]
 
 ## Directory Structure
 
